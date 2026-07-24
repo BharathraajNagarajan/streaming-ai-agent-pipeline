@@ -1,0 +1,7 @@
+# Top-level convenience file. See producer/requirements.txt and
+# streamlit/requirements.txt for the split used when deploying each
+# component independently.
+snowpipe-streaming>=0.1.0
+snowflake-snowpark-python
+streamlit
+pandas

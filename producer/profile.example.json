@@ -1,0 +1,11 @@
+{
+  "user": "STREAMING_PIPELINE_USER",
+  "account": "<YOUR_ORG>-<YOUR_ACCOUNT>",
+  "url": "https://<YOUR_ORG>-<YOUR_ACCOUNT>.snowflakecomputing.com:443",
+  "role": "STREAMING_PIPELINE_ROLE",
+  "database": "STREAMING_PIPELINE_DB",
+  "schema": "EVENTS",
+  "table": "BRONZE_SERVICE_EVENTS",
+  "authenticator": "PROGRAMMATIC_ACCESS_TOKEN",
+  "token": "<PASTE_YOUR_PAT_HERE_LOCALLY_ONLY>"
+}

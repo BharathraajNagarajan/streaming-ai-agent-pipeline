@@ -1,0 +1,16 @@
+# Secrets — never commit real credentials
+producer/profile.json
+*.pat
+secret.pat
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
