@@ -78,3 +78,32 @@ was written:
 None of these block the pipeline from being *understood* — they're flagged
 here so they get verified against a live account before being presented as
 "tested and working," rather than discovered by someone else first.
+
+
+
+## Cortex Agent: A Real Platform Limitation Hit During Testing
+
+The Cortex Agent (`RETAILPULSE_SRE`) is fully built and configured — grounded
+on `SERVICE_HEALTH_SV`, with orchestration and response instructions set —
+but live chat queries against it consistently return:
+
+> `Error: Access denied for trial accounts.`
+
+This was investigated methodically rather than assumed:
+
+- **Cross-region inference** — enabled (`ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION'`), no change
+- **`ENABLE_CORTEX_ANALYST`** — confirmed already `TRUE` at the account level, no change
+- **Model swap** — tested across three different models from three different providers (Claude, OpenAI-family, Gemini-family), same error on all three, ruling out a single-model restriction
+
+This points to Cortex Agents being gated at the account-entitlement level for
+standard self-serve trial accounts specifically — not a configurable setting.
+Snowflake's own VHOL session (the inspiration for this project) used a
+special AI-enabled trial invite, not the public signup flow used here, which
+likely carries different entitlements.
+
+**What this means practically:** the semantic view layer is proven working
+end-to-end (`SEMANTIC_VIEW()` queries return correct results — see
+`screenshots/05_semantic_view.png`), and the agent is fully configured and
+ready to serve queries the moment it's running on an account with the right
+entitlement (a paid/ODSS account, or a Snowflake-provisioned AI trial). The
+gap here is a platform access boundary, not a gap in the implementation.

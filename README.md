@@ -52,6 +52,29 @@ flowchart TD
 More detail, plus two additional diagrams (the medallion flow and the agent
 grounding flow), live in [`architecture/`](architecture/).
 
+## Proof of Life
+
+Every layer below was built and run against a live Snowflake trial account —
+not just designed. The two screenshots that matter most: a synthetic
+cascading-failure scenario, detected automatically, end to end.
+
+**Incident detected — `inventory-service` degrading in real time:**
+
+![Incident detected on the dashboard](screenshots/07_incident_detected.png)
+
+**The raw evidence underneath it — live Bronze event feed, same moment:**
+
+![Raw error logs in Bronze](screenshots/08_incident_raw_logs.png)
+
+No error rate here was hand-picked or staged after the fact — this is the
+producer's built-in `inventory_cascade` fault scenario (see
+[`producer/README.md`](producer/README.md)), caught by the pipeline within
+about a minute of onset, visible on the dashboard without any manual query.
+
+Full screenshot set — Bronze row counts, the Silver/Gold Dynamic Tables, the
+Interactive Table, the Semantic View, and the healthy-state dashboard — is in
+[`screenshots/`](screenshots/).
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -114,6 +137,9 @@ summarized below.
 - **[`cortex_agent/`](cortex_agent/)** — documented configuration and a
   five-prompt validation script for the agent (agents are configured in the
   Snowsight UI, so this folder is documentation rather than executable code).
+  The agent is fully built and grounded on the semantic view; live chat
+  queries currently hit a trial-account entitlement limit rather than a bug
+  in this project — see [`docs/production_considerations.md`](docs/production_considerations.md#cortex-agent-a-real-platform-limitation-hit-during-testing).
 
 ## Running the Project
 
