@@ -14,3 +14,7 @@ venv/
 .DS_Store
 .vscode/
 .idea/
+
+producer/rsa_key.p8
+producer/rsa_key.pub
+producer/pubkey.txt
